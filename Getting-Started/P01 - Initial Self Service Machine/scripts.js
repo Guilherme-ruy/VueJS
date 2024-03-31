@@ -61,13 +61,6 @@ var products = [
         "price": 1.49,
         "active": false,
         "quantity": 0
-    },
-    {
-        "photo": "img/water.png",
-        "name": "Água nº2 Teste",
-        "price": 1.49,
-        "active": false,
-        "quantity": 0
     }
 ];
 

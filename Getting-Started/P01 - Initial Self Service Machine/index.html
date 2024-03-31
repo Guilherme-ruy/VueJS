@@ -19,76 +19,68 @@
 
 <body>
 
-    <main id="app">
+    <main id="app" class="container-fluid">
+        <!--LOOP FOR ITEMS-->
 
-        <div class="container-lg">
-            <!--LOOP FOR ITEMS-->
-            <div class="row">
-                <div class="col">
-                    <section class="items">
-                        <h4 class="text-center">Monte seu pedido</h4>
-                        <div class="row">
-                            <div v-for="product in products" class=" col-6 product"
-                                @click="product.active = !product.active" :class="{selected : product.active}">
-                                <div class="photo">
-                                    <img :src="product.photo">
-                                </div>
-                                <div class="description">
-                                    <span class="name">{{product.name}}</span>
-                                    <span class="price">R${{product.price}}</span>
-                                    <div class="quantity-area" v-if="product.active">
+        <section class="items">
+            <h4 class="text-center">Monte seu pedido</h4>
+            <div class="row justify-content-center mb-2">
 
-                                        <button class="btn btn-danger text-center btn-sm"
-                                            @click.stop="product.quantity-=1"
-                                            :disabled="product.quantity <= 0">-</button>
+                <div v-for="product in products"
+                    class="col-3 bg-light product border-1 rounded-3 justify-content-center align-items-center d-flex flex-column"
+                    @click="product.active = !product.active" :class="{selected : product.active}">
+                    <div class="photo">
+                        <img :src="product.photo">
+                    </div>
 
 
-                                        <span class="quantity mx-1">{{product.quantity}}</span>
+                    <!--DESCRIPTION-->
+                    <div class="description">
+                        <span class="name">{{product.name}}</span>
+                        <span class="price mb-1">R${{product.price}}</span>
+
+                        <div class="quantity-area mb-1 mt-1" v-if="product.active">
+                            <button class="btn btn-danger text-center btn-sm" @click.stop="product.quantity-=1"
+                                :disabled="product.quantity <= 0">-</button>
 
 
-                                        <button class="btn btn-success text-center btn-sm"
-                                            @click.stop="product.quantity+=1"
-                                            :disabled="product.quantity >= 9">+</button>
+                            <span class="quantity mx-1">{{product.quantity}}</span>
 
-                                    </div>
-                                </div>
-                            </div>
+
+                            <button class="btn btn-success text-center btn-sm" @click.stop="product.quantity+=1"
+                                :disabled="product.quantity >= 9">+</button>
                         </div>
-                    </section>
+                    </div>
                 </div>
-                <!--LOOP FOR ITEMS-->
+                <!--DESCRIPTION-->
 
 
-
-                <!--ORDER SUMMARY-->
-                <div class="col-4">
-                    <section class="summary table" v-if="total() > 0">
-                        <strong>Resumo do pedido</strong>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Item</th>
-                                    <th>Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="product in products">
-                                    <td v-if="product.active">{{product.quantity.toFixed(0) + 'x ' + product.name}}</td>
-                                    <td v-if="product.active">{{(product.quantity * product.price).toFixed(2)}}</td>
-                                </tr>
-
-                                <tr>
-                                    <th>Valor Total</th>
-                                    <th>R${{total()}}</th>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </section>
-                </div>
             </div>
+        </section>
+        <!--LOOP FOR ITEMS-->
 
 
-        </div>
+
+        <!--ORDER SUMMARY-->
+        <section class="row w-100 rounded-3" v-if="total() > 0">
+
+            <p class="bg-dark text-light fw-5 text-center btn-sm px-5 mb-2 w-100 rounded-3">Resumo do pedido</p>
+            <table class="bg-light w-100 p-2 w-100 rounded-3 text-center justify-content-center">
+                <tbody>
+                    <tr v-for="product in products">
+                        <td v-if="product.active">{{product.quantity.toFixed(0) + 'x ' + product.name}}</td>
+                        <td v-if="product.active">{{(product.quantity * product.price).toFixed(2)}}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Valor Total</th>
+                        <th>R${{total()}}</th>
+                    </tr>
+                </tbody>
+            </table>
+
+            <button class="btn btn-success btn-sm w-100 p-0 rounded-3">Finalizar pedido</button>
+        </section>
     </main>
     <!--ORDER SUMMARY-->
 

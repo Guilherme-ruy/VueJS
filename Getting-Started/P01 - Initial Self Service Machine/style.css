@@ -5,41 +5,36 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
-main>section.items h4 {
-    text-align: center;
-    margin-top: 0;
-    width: 100%;
-}
-
 main {
     display: flex;
     justify-content: center;
     align-items: flex-start;
     flex-wrap: wrap;
-    padding-top: 20px;
+    padding-top: 15px;
+    height: 100vh;
+    background-color: #fff6e9;
 }
 
-main>section.items {
+/* main>section.items {
     display: flex;
     flex-wrap: wrap;
-    border: 1px solid lightgrey;
-    padding: 20px;
-    max-width: 500px;
-    min-width: 300px;
+    padding: 12px;
+    max-width: 300px;
+    min-width: 200px;
     justify-content: center;
 
-}
+} */
 
 section.items .product {
-    border: 1px solid lightgrey;
-    margin: 6px;
-    flex: 0 0 calc(33.333% - 24px);
+    border: 1px solid rgb(53, 53, 53);
+    margin: 3px;
+    /* flex: 0 0 calc(33.333% - 24px); */
     cursor: pointer;
     text-align: center;
 }
 
 section.items .product.selected {
-    border: 2px solid rgb(29, 134, 233);
+    border: 2px solid rgb(0, 175, 67);
 
 }
 
@@ -57,14 +52,7 @@ section.items .description {
 }
 
 section.items .description .price {
-    font-weight: 600;
-    font-size: 14px;
-    margin: 4px auto;
-}
-
-section.items .description .quantity-area {
-    margin: 8px auto;
-    height: 14px;
+    font-size: 11px;
 }
 
 section.items .description .quantity-area button {
@@ -74,12 +62,6 @@ section.items .description .quantity-area button {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-}
-
-section.items .description .quantity-area .quantity {
-    font-weight: 500;
-    font-size: 14px;
-    margin: 0 6px;
 }
 
 
