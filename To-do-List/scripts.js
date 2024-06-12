@@ -1,20 +1,4 @@
-var tarefas = [
-    {
-        text: "Tarefa 1",
-        done: false
-
-    },
-
-    {
-        text: "Tarefa 2",
-        done: false
-    },
-
-    {
-        text: "Tarefa 3",
-        done: false
-    },
-]
+var tarefas = [];
 
 
 const todoList = {
@@ -35,12 +19,29 @@ const todoList = {
                 this.novaTarefa = {
                     done: false
                 };
+                localStorage.setItem('tarefas', JSON.stringify(this.tarefas));
             } else {
                 alert("Campo em branco!");
             }
 
+        },
+
+
+        limparTudo: function () {
+            this.tarefas = [];
+            localStorage.setItem('tarefas', JSON.stringify(this.tarefas));
         }
-    }
+    },
+
+
+    created() {
+        if (localStorage.getItem('tarefas')) {
+            this.tarefas = JSON.parse(localStorage.getItem('tarefas'));
+        }
+    },
+    updated() {
+        localStorage.setItem('tarefas', JSON.stringify(this.tarefas));
+    },
 };
 
 

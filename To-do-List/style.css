@@ -6,7 +6,7 @@ body {
 main {
     display: flex;
     justify-content: center;
-    align-items:flex-start;
+    align-items: flex-start;
     flex-wrap: wrap;
     padding-top: 60px;
 }
@@ -35,7 +35,7 @@ main button:hover {
 
 main button.add {
     background-color: #007bff;
-    border: 1px solid  #007bff;
+    border: 1px solid #007bff;
     margin-left: 2px;
 }
 
@@ -47,17 +47,17 @@ main button.clear {
 }
 
 main button:focus {
-    outline:0;
+    outline: 0;
 }
 
-main > section.todo-list h3 {
+main>section.todo-list h3 {
     text-align: center;
     margin-top: 24px;
     width: 100%;
 }
 
 
-main > section.todo-list {
+main>section.todo-list {
 
     flex-wrap: wrap;
     border: 1px solid lightgrey;
@@ -73,15 +73,16 @@ main .all-todos .single-todo {
     display: flex;
     align-items: center;
     justify-content: center;
-    
+    text-decoration: none;
+
 }
 
-main .all-todos .single-todo p {
+main .all-todos .single-todo {
     margin: 12px 0;
     cursor: pointer;
 }
 
-main .all-todos .single-todo.done p {
+main .all-todos .single-todo.done {
     text-decoration: line-through;
 }
 
@@ -95,7 +96,7 @@ main .all-todos .single-todo button.remove {
     margin-left: 8px;
 }
 
-main > section.todo-list button.clear {
+main>section.todo-list button.clear {
 
     margin-top: 24px;
 }
