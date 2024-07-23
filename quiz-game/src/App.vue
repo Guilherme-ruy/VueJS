@@ -1,31 +1,36 @@
 <template>
+  <h1>Questions T.I.</h1>
+  <h3 v-html="question"></h3>
 
-<hr>
-
-<div>
-  <h1>Quantas perguntas terá</h1>
-</div>
-
-<input type="radio" name="options" value="True">
-<label>True</label>
-<br>
-<input type="radio" name="options" value="True">
-<label>False</label>
-<br>
-<button class="btnSend" type="button">Enviar</button>
-
+  <br>
+  <button class="btnSend" type="button">Enviar</button>
 </template>
 
 <script>
 //REQUISIÇÕES (URL API)
-//https://opentdb.com/api.php?amount=1&category=18&difficulty=easy&type=boolean
 export default {
   name: 'App',
+
+  data() {
+    return {
+      question: undefined,
+      incorrectAnswers: undefined,
+      correctAnswer: undefined,
+    }
+  },
+
+  //REQUESTS A CADA 5SECONDS
+  async created() {
+    const resposta = await this.axios.get('https://opentdb.com/api.php?amount=1&category=18&difficulty=easy&type=boolean'
+    )
+    this.question = resposta.data.results[0].question
+  }
 }
 
-created() {
-  
-}
+// ((response) => {
+//       this.question = response.data.results[0].question
+//       this.incorrectAnswers = response.data.results[0].incorrect_answers
+//       this.correctAnswer = response.data.results[0].correct_answer
 </script>
 
 <style lang="scss">
@@ -40,24 +45,24 @@ created() {
   margin: 100px auto;
 }
 
-  input[type=radio] {
+input[type=radio] {
   margin: 10px;
-  }
+}
 
-  .btnSend {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #2c3e50;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    min-width: 160px;
-    max-width: 200px;
-    transition: background-color 0.3s ease;
-    &:hover {
-      background-color: #42b983;
-    }
-  }
+.btnSend {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #2c3e50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  min-width: 160px;
+  max-width: 200px;
+  transition: background-color 0.3s ease;
 
+  &:hover {
+    background-color: #42b983;
+  }
+}
 </style>
