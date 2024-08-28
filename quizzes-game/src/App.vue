@@ -28,7 +28,6 @@ export default {
     return {
       isLoading: true,
       api: 'https://opentdb.com/api.php?amount=1&category=18',
-      triviaData: null,
       question: '',
       incorrectAnswers: [],
       correctAnswer: '',
@@ -36,10 +35,7 @@ export default {
     };
   },
   mounted() {
-    setTimeout(() => {
-      this.isLoading = false;
-      this.getQuestions();
-    }, 4600);
+    this.loadQuestionWithDelay();
   },
   computed: {
     allAnswers() {
@@ -47,6 +43,13 @@ export default {
     }
   },
   methods: {
+    loadQuestionWithDelay() {
+      this.isLoading = true; // Ativa a tela de carregamento
+      setTimeout(() => {
+        this.isLoading = false; // Desativa a tela de carregamento após o delay
+        this.getQuestions();
+      }, 4600);
+    },
     getQuestions() {
       axios.get(this.api)
         .then((response) => {
@@ -54,6 +57,7 @@ export default {
           this.question = result.question;
           this.incorrectAnswers = result.incorrect_answers;
           this.correctAnswer = result.correct_answer;
+          this.selectedAnswer = null; // Limpa a resposta selecionada ao carregar uma nova pergunta
         })
         .catch((error) => {
           console.error('Erro ao buscar as perguntas:', error);
@@ -65,6 +69,7 @@ export default {
       } else {
         alert('Resposta incorreta. Tente novamente.');
       }
+      this.loadQuestionWithDelay(); // Carrega uma nova pergunta com delay após verificar a resposta
     }
   }
 };
