@@ -64,12 +64,18 @@ export default {
         });
     },
     checkAnswer() {
-      if (this.selectedAnswer === this.correctAnswer) {
-        alert('Resposta correta!');
+      if (!this.selectedAnswer) {
+        alert('Escolha uma opção primeiramente')
       } else {
-        alert('Resposta incorreta. Tente novamente.');
+        if (this.selectedAnswer === this.correctAnswer) {
+          alert('Resposta correta!');
+        } else {
+          alert('Resposta incorreta. Tente novamente.');
+        }
+        this.loadQuestionWithDelay();
       }
-      this.loadQuestionWithDelay(); // Carrega uma nova pergunta com delay após verificar a resposta
+
+
     }
   }
 };
