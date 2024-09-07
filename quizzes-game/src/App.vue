@@ -10,12 +10,21 @@
       <p v-if="question">{{ question }}</p>
       <hr>
       <div v-for="(answer, index) in allAnswers" :key="index">
-        <input type="radio" :id="answer" :value="answer" v-model="selectedAnswer">
+        <input :disabled="this.answerSubmitted" type="radio" :id="answer" :value="answer" v-model="selectedAnswer">
         <label :for="answer">{{ answer }}</label>
       </div>
       <br>
-      <button @click="checkAnswer">Verificar resposta</button>
+      <button v-if="!this.answerSubmitted" @click="checkAnswer">Verificar resposta</button>
     </div>
+
+    <section v-if="this.answerSubmitted" id="result">
+      <h5 v-if="this.selectedAnswer === this.correctAnswer">Muito bem! Você acertou</h5>
+
+      <h5 v-else> Não foi desta vez :C A resposta correta era {{
+        correctAnswer }}</h5>
+
+      <button @click="loadQuestionWithDelay">Proxima pergunta</button>
+    </section>
   </div>
 </template>
 
@@ -31,7 +40,8 @@ export default {
       question: '',
       incorrectAnswers: [],
       correctAnswer: '',
-      selectedAnswer: null
+      selectedAnswer: null,
+      answerSubmitted: false,
     };
   },
   mounted() {
@@ -67,12 +77,13 @@ export default {
       if (!this.selectedAnswer) {
         alert('Escolha uma opção primeiramente')
       } else {
+        this.answerSubmitted = true;
         if (this.selectedAnswer === this.correctAnswer) {
           alert('Resposta correta!');
         } else {
           alert('Resposta incorreta. Tente novamente.');
         }
-        this.loadQuestionWithDelay();
+        //this.loadQuestionWithDelay();
       }
 
 
@@ -90,6 +101,7 @@ export default {
   color: #2c3e50;
   height: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 
