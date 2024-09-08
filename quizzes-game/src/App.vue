@@ -4,14 +4,16 @@
       <p>Carregando...</p>
     </div>
 
+
+
     <div v-else class="margin-limit">
-      <h1>Quiz Game</h1>
+      <ScoreBoard :winCount="this.winCount" :loseCount="this.loseCount" />
       <h3>Question</h3>
-      <p v-if="question">{{ question }}</p>
+      <p v-if="question" v-html="question"></p>
       <hr>
       <div v-for="(answer, index) in allAnswers" :key="index">
         <input :disabled="this.answerSubmitted" type="radio" :id="answer" :value="answer" v-model="selectedAnswer">
-        <label :for="answer">{{ answer }}</label>
+        <label :for="answer" v-html="answer"></label>
       </div>
       <br>
       <button v-if="!this.answerSubmitted" @click="checkAnswer">Verificar resposta</button>
@@ -20,8 +22,9 @@
     <section v-if="this.answerSubmitted" id="result">
       <h5 v-if="this.selectedAnswer === this.correctAnswer">Muito bem! Você acertou</h5>
 
-      <h5 v-else> Não foi desta vez :C A resposta correta era {{
-        correctAnswer }}</h5>
+      <h5 v-else v-html="'Não foi desta vez :C A resposta correta era ' +
+        correctAnswer
+        "> </h5>
 
       <button @click="loadQuestionWithDelay">Proxima pergunta</button>
     </section>
@@ -29,10 +32,14 @@
 </template>
 
 <script>
+import ScoreBoard from './components/ScoreBoard.vue';
 import axios from 'axios';
 
 export default {
   name: 'App',
+  components: {
+    ScoreBoard
+  },
   data() {
     return {
       isLoading: true,
@@ -42,6 +49,8 @@ export default {
       correctAnswer: '',
       selectedAnswer: null,
       answerSubmitted: false,
+      winCount: 0,
+      loseCount: 0,
     };
   },
   mounted() {
@@ -61,6 +70,9 @@ export default {
       }, 4600);
     },
     getQuestions() {
+      this.answerSubmitted = false;
+      this.selectedAnswer = null;
+      this.question = undefined;
       axios.get(this.api)
         .then((response) => {
           const result = response.data.results[0];
@@ -75,15 +87,16 @@ export default {
     },
     checkAnswer() {
       if (!this.selectedAnswer) {
-        alert('Escolha uma opção primeiramente')
+        alert('Escolha uma opção')
       } else {
         this.answerSubmitted = true;
-        if (this.selectedAnswer === this.correctAnswer) {
-          alert('Resposta correta!');
+        if (this.selectedAnswer == this.correctAnswer) {
+          this.winCount++;
+          console.log('Resposta correta!');
         } else {
-          alert('Resposta incorreta. Tente novamente.');
+          console.log('Resposta incorreta. Tente novamente.');
+          this.loseCount++;
         }
-        //this.loadQuestionWithDelay();
       }
 
 
